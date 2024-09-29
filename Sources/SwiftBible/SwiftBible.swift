@@ -68,7 +68,7 @@ public struct SwiftBible {
 }
 
 // MARK: - Models
-public struct BibleVerse: Identifiable, Codable {
+public struct BibleVerse: Identifiable, Codable, Sendable {
     public let id: Int
     public let bookId: Int
     public let chapterId: Int
@@ -84,12 +84,12 @@ public struct BibleVerse: Identifiable, Codable {
     }
 }
 
-struct BibleVersion: Hashable {
+struct BibleVersion: Hashable, Sendable {
     let name: String
     let id: String
 }
 
-struct VerseResponse: Codable {
+struct VerseResponse: Codable, Sendable {
     let id: Int
     let book: Book
     let chapterId: Int
