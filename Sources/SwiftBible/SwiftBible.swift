@@ -68,7 +68,7 @@ public struct SwiftBible {
 }
 
 // MARK: - Models
-public struct BibleVerse: Identifiable, Codable, Sendable {
+public struct BibleVerse: Identifiable, Codable, Sendable, Equatable {
     public let id: Int
     public let bookId: Int
     public let chapterId: Int
