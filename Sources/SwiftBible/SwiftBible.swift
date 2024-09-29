@@ -104,21 +104,42 @@ struct Book: Codable {
 }
 
 // MARK: - Views
-public struct BibleVersePickerView: View {
+public struct BibleVersePickerView<ButtonContent: View>: View {
     @Binding var selectedVerses: [BibleVerse]
     @State private var isPresented = false
+    private let buttonContent: (() -> ButtonContent)?
     
-    public init(selectedVerses: Binding<[BibleVerse]>) {
+    public init(selectedVerses: Binding<[BibleVerse]>) where ButtonContent == Text {
         self._selectedVerses = selectedVerses
+        self.buttonContent = nil
+    }
+    
+    public init(selectedVerses: Binding<[BibleVerse]>, @ViewBuilder buttonContent: @escaping () -> ButtonContent) {
+        self._selectedVerses = selectedVerses
+        self.buttonContent = buttonContent
     }
     
     public var body: some View {
-        Button("Select Bible Verse") {
+        Button(action: {
             isPresented = true
+        }) {
+            if let customContent = buttonContent {
+                customContent()
+            } else {
+                defaultButtonContent
+            }
         }
         .sheet(isPresented: $isPresented) {
             BibleVersePicker(selectedVerses: $selectedVerses)
         }
+    }
+    
+    private var defaultButtonContent: some View {
+        Text("Select Bible Verse")
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8)
     }
 }
 
