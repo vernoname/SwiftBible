@@ -122,7 +122,7 @@ public struct BibleVersePickerView: View {
     }
 }
 
-struct BibleVersePicker: View {
+struct BibleVersePicker: View, Sendable {
     @State private var selectedVersion = BibleVersion(name: "New International Version", id: "NIV")
     @State private var verseReference = ""
     @State private var book = ""
