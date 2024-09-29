@@ -248,6 +248,10 @@ struct BibleVersePicker: View, Sendable {
     }
 }
 
+public func combineVerses(bibleVerses: [BibleVerse]) -> String {
+    return bibleVerses.map { "\($0.verseId). \($0.text)" }.joined(separator: "\n")
+}
+
 // MARK: - Utilities
 enum BibleError: Error {
     case invalidBook
